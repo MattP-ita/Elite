@@ -14,33 +14,28 @@
 <title>Elite</title>
 </head>
 <body>
-	<table>
-		<tr>
-			<th>Nome</th>
-			<th>Artista</th>
-			<th>Genere</th>
-		</tr>
+	<div>
 		<%
-			if(vinili!=null && vinili.size()>0){
-				Iterator<?> it=vinili.iterator();
-				while(it.hasNext()){
-					Vinile v=(Vinile) it.next();
+		if ( vinili.size() > 0) {
+			Iterator<?> it = vinili.iterator();
+			while (it.hasNext()) {
+				Vinile v = (Vinile) it.next();
+				
 		%>
-			<tr>			
-				<td><%=v.getNome()%></td>
-				<td><%=v.getArtista() %></td>
-				<td><%=v.getGenere() %></td>		
-			</tr>
-		<%
-				}
-			}else{
-		%>
-			<tr>			
-				<td colspan="3">Nessun Vinile presente</td>
-			</tr>				
-		<%
+			<div>
+				<h2> <a href="<%=response.encodeURL("VisualizzazioneDettagliVinileControl?codiceV="+ v.getId())%>" > <%=v.getNome()%> </a> </h2> 
+				<h3> <a href="<%=response.encodeURL("FiltroViniliClienti?action=artista&artista="+ v.getIdArtista()) %>" > <%=v.getArtista()%> </a> </h3>
+				<a href="<%=response.encodeURL("VisualizzazioneDettagliVinileControl?codiceV="+ v.getId()) %>" ><img class="img__prodotto" src="./CopertinaControl?codiceV=<%= v.getId()%>" onerror="this.src='./images/NoCop.jpg'"></a>
+			</div>
+		
+		<%	
 			}
+		}else{
 		%>
-	</table>
+			<p style="padding:100px; font-size: 30px;">Nessun vinile trovato</p>
+		<%
+		}
+		%>
+	</div>
 </body>
 </html>

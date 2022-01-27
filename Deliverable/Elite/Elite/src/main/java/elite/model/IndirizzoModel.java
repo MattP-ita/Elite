@@ -32,7 +32,7 @@ public class IndirizzoModel implements ClassModel<Indirizzo> {
 				i.setIdCliente(rs.getInt("idCliente"));
 				i.setNome(rs.getString("nome"));
 				i.setTelefono(rs.getString("telefono"));
-				i.setIndirizo(rs.getString("indirizzo"));
+				i.setIndirizzo(rs.getString("indirizzo"));
 				i.setRegione(rs.getString("regione"));
 				i.setProvincia(rs.getString("provincia"));
 				i.setCitta(rs.getString("citta"));
@@ -71,7 +71,7 @@ public class IndirizzoModel implements ClassModel<Indirizzo> {
 			preparedStatement.setInt(1, i.getIdCliente());
 			preparedStatement.setString(2, i.getNome());
 			preparedStatement.setString(3, i.getTelefono());
-			preparedStatement.setString(4, i.getIndirizo());
+			preparedStatement.setString(4, i.getIndirizzo());
 			preparedStatement.setString(5, i.getRegione());
 			preparedStatement.setString(6, i.getProvincia());
 			preparedStatement.setString(7, i.getCitta());
@@ -107,7 +107,7 @@ public class IndirizzoModel implements ClassModel<Indirizzo> {
 			preparedStatement.setInt(1, i.getIdCliente());
 			preparedStatement.setString(2, i.getNome());
 			preparedStatement.setString(3, i.getTelefono());
-			preparedStatement.setString(4, i.getIndirizo());
+			preparedStatement.setString(4, i.getIndirizzo());
 			preparedStatement.setString(5, i.getRegione());
 			preparedStatement.setString(6, i.getProvincia());
 			preparedStatement.setString(7, i.getCitta());
@@ -181,7 +181,7 @@ public class IndirizzoModel implements ClassModel<Indirizzo> {
 				i.setIdCliente(rs.getInt("idCliente"));
 				i.setNome(rs.getString("nome"));
 				i.setTelefono(rs.getString("telefono"));
-				i.setIndirizo(rs.getString("indirizzo"));
+				i.setIndirizzo(rs.getString("indirizzo"));
 				i.setRegione(rs.getString("regione"));
 				i.setProvincia(rs.getString("provincia"));
 				i.setCitta(rs.getString("citta"));

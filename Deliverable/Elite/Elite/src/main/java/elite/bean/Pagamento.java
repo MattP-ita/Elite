@@ -103,7 +103,8 @@ public class Pagamento {
 		return true;
 	}
 	
-	public boolean isEmpty() {
-		return numero.equals("");
+	public String toString() {
+		return tipo+";"+idCliente+";"+nome+";"+numero+";"+scadenza+";"+codice+";";
 	}
+	
 }

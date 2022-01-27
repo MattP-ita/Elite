@@ -189,6 +189,6 @@ public class PagamentoModel implements ClassModel<Pagamento> {
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
-		return p.isEmpty();	
+		return p.getNumero()==null;	
 	}
 }

@@ -5,7 +5,7 @@ public class Indirizzo {
 	private int idCliente;
 	private String nome;
 	private String telefono;
-	private String indirizo;
+	private String indirizzo;
 	private String regione;
 	private String provincia;
 	private String citta;
@@ -14,12 +14,12 @@ public class Indirizzo {
 	
 	public Indirizzo() {}
 	
-	public Indirizzo(int idCliente, String nome, String telefono, String indirizo, String regione,
+	public Indirizzo(int idCliente, String nome, String telefono, String indirizzo, String regione,
 			String provincia, String citta, String cap, String descrizione) {
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.telefono = telefono;
-		this.indirizo = indirizo;
+		this.indirizzo = indirizzo;
 		this.regione = regione;
 		this.provincia = provincia;
 		this.citta = citta;
@@ -27,13 +27,13 @@ public class Indirizzo {
 		this.descrizione = descrizione;
 	}
 	
-	public Indirizzo(int id, int idCliente, String nome, String telefono, String indirizo, String regione,
+	public Indirizzo(int id, int idCliente, String nome, String telefono, String indirizzo, String regione,
 			String provincia, String citta, String cap, String descrizione) {
 		this.id = id;
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.telefono = telefono;
-		this.indirizo = indirizo;
+		this.indirizzo = indirizzo;
 		this.regione = regione;
 		this.provincia = provincia;
 		this.citta = citta;
@@ -73,12 +73,12 @@ public class Indirizzo {
 		this.telefono = telefono;
 	}
 
-	public String getIndirizo() {
-		return indirizo;
+	public String getIndirizzo() {
+		return indirizzo;
 	}
 
-	public void setIndirizo(String indirizo) {
-		this.indirizo = indirizo;
+	public void setIndirizzo(String indirizo) {
+		this.indirizzo = indirizo;
 	}
 
 	public String getRegione() {
@@ -119,5 +119,9 @@ public class Indirizzo {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+	
+	public String toString() {
+		return idCliente+";"+nome+";"+telefono+";"+indirizzo+";"+regione+";"+provincia+";"+citta+";"+cap+";"+descrizione+";";
 	}
 }
