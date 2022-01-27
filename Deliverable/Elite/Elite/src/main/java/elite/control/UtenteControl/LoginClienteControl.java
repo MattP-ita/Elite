@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import elite.bean.Carrello;
 import elite.bean.Cliente;
 import elite.model.ClienteModel;
 
@@ -44,6 +45,8 @@ public class LoginClienteControl extends HttpServlet {
 					request.getSession().setAttribute("Cliente", c);
 					request.getSession().setAttribute("accountRoles", "cliente");
 					redirectedPage = "/HomePageCliente.jsp";
+					Carrello carrello = new Carrello();
+					request.getSession().setAttribute("carrello", carrello);
 				}else{
 					request.setAttribute("msgError", "Login errato, riprova.");
 					throw new Exception("LoginClienteControl: Account non trovato");

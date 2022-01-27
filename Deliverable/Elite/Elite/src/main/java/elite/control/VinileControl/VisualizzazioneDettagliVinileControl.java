@@ -29,10 +29,10 @@ public class VisualizzazioneDettagliVinileControl extends HttpServlet {
 		VinileModel vm = new VinileModel();
 		String redirectedPage = "/Catalogo.jsp";
 		
-		String id=request.getParameter("id");
+		String id=request.getParameter("codiceV");
 		
 		try {
-			request.setAttribute("vinili", vm.findByKey(id));
+			request.setAttribute("vinile", vm.findByKey(id));
 			redirectedPage = "/DettagliVinile.jsp";
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
