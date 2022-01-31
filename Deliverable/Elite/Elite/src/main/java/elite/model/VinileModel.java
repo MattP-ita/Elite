@@ -1,11 +1,17 @@
 package elite.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import elite.bean.Artista;
+import elite.bean.Genere;
 import elite.bean.Vinile;
 
 public class VinileModel implements ClassModel<Vinile> {
@@ -31,10 +37,8 @@ public class VinileModel implements ClassModel<Vinile> {
 				v.setId(rs.getString("id"));
 				v.setNome(rs.getString("nome"));
 				v.setGiri(rs.getString("giri"));
-				v.setIdArtista(rs.getInt("idArtista"));
-				v.setArtista(rs.getString("nomeA"));
-				v.setIdGenere(rs.getInt("idGenere"));
-				v.setGenere(rs.getString("nomeG"));
+				v.setArtista(new Artista(rs.getInt("idArtista"), rs.getString("nomeA")));
+				v.setGenere(new Genere(rs.getInt("idGenere"), rs.getString("nomeG")));
 				v.setPrezzo(rs.getDouble("prezzo"));
 				v.setQuantita(rs.getInt("quantita"));
 				byte[] bt = rs.getBytes("copertina");
@@ -82,10 +86,8 @@ public class VinileModel implements ClassModel<Vinile> {
 				v.setId(rs.getString("id"));
 				v.setNome(rs.getString("nome"));
 				v.setGiri(rs.getString("giri"));
-				v.setIdArtista(rs.getInt("idArtista"));
-				v.setArtista(rs.getString("nomeA"));
-				v.setIdGenere(rs.getInt("idGenere"));
-				v.setGenere(rs.getString("nomeG"));
+				v.setArtista(new Artista(rs.getInt("idArtista"), rs.getString("nomeA")));
+				v.setGenere(new Genere(rs.getInt("idGenere"), rs.getString("nomeG")));
 				v.setPrezzo(rs.getDouble("prezzo"));
 				v.setQuantita(rs.getInt("quantita"));
 				byte[] bt = rs.getBytes("copertina");
@@ -277,7 +279,7 @@ public class VinileModel implements ClassModel<Vinile> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 
-			System.out.println("ricarcaAvanzata:" + preparedStatement.toString());
+			System.out.println("VinileModel: advancedSearch:" + preparedStatement.toString());
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -286,10 +288,8 @@ public class VinileModel implements ClassModel<Vinile> {
 				v.setId(rs.getString("id"));
 				v.setNome(rs.getString("nome"));
 				v.setGiri(rs.getString("giri"));
-				v.setIdArtista(rs.getInt("idArtista"));
-				v.setArtista(rs.getString("nomeA"));
-				v.setIdGenere(rs.getInt("idGenere"));
-				v.setGenere(rs.getString("nomeG"));
+				v.setArtista(new Artista(rs.getInt("idArtista"), rs.getString("nomeA")));
+				v.setGenere(new Genere(rs.getInt("idGenere"), rs.getString("nomeG")));
 				v.setPrezzo(rs.getDouble("prezzo"));
 				v.setQuantita(rs.getInt("quantita"));
 				byte[] bt = rs.getBytes("copertina");
@@ -337,10 +337,8 @@ public class VinileModel implements ClassModel<Vinile> {
 				v.setId(rs.getString("id"));
 				v.setNome(rs.getString("nome"));
 				v.setGiri(rs.getString("giri"));
-				v.setIdArtista(rs.getInt("idArtista"));
-				v.setArtista(rs.getString("nomeA"));
-				v.setIdGenere(rs.getInt("idGenere"));
-				v.setGenere(rs.getString("nomeG"));
+				v.setArtista(new Artista(rs.getInt("idArtista"), rs.getString("nomeA")));
+				v.setGenere(new Genere(rs.getInt("idGenere"), rs.getString("nomeG")));
 				v.setPrezzo(rs.getDouble("prezzo"));
 				v.setQuantita(rs.getInt("quantita"));
 				byte[] bt = rs.getBytes("copertina");
@@ -363,5 +361,72 @@ public class VinileModel implements ClassModel<Vinile> {
 		}
 		return vinili;
 	}
+
+	public synchronized static byte[] loadCopertina(String id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		byte[] bt = null;
+		String selectSQL = "SELECT copertina FROM vinile WHERE id =?";
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, id);
+
+			System.out.println("VinileModel: loadCopertina:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				bt = rs.getBytes("copertina");
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException sqlException) {
+				System.out.println(sqlException);
+			} finally {
+				if (connection != null)
+					DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bt;
+	}
+	
+	public synchronized static void updateCopertina(String id, String copertina) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE vinile SET copertina = ? WHERE id = ?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			
+			File file = new File(copertina);
+			try {
+				FileInputStream fis = new FileInputStream(file);
+				preparedStatement.setBinaryStream(1, fis, fis.available());
+				preparedStatement.setString(2, id);
+				
+				preparedStatement.executeUpdate();
+				connection.commit();
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException sqlException) {
+				System.out.println(sqlException);
+			} finally {
+				if (connection != null)
+					DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+	}	
 
 }

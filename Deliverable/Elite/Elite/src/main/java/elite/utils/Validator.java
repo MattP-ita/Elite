@@ -47,11 +47,9 @@ public class Validator {
 			v.setValidatorStrategy(new ValidatorAllLetter());
 		else if (s.equals("quantita"))
 			v.setValidatorStrategy(new ValidatorNumber());
-		else if (s.equals("meseP"))
-			v.setValidatorStrategy(new ValidatorMeseP());
-		else if (s.equals("annoP"))
-			v.setValidatorStrategy(new ValidatorAnnoP());
-		else if (s.equals("indirizzo") || s.equals("descrizione") || s.equals("nomeV") || s.equals("nomeA")
+		else if (s.equals("scadenza"))
+			v.setValidatorStrategy(new ValidatorScadenza());
+		else if (s.equals("indirizzo") || s.equals("nomeV") || s.equals("nomeA")
 				|| s.equals("nomeG"))
 			v.setValidatorStrategy(new ValidatorAlphanumeric());
 		else if (s.equals("codiceV"))
@@ -60,6 +58,8 @@ public class Validator {
 			v.setValidatorStrategy(new ValidatorGiri());
 		else if (s.equals("prezzo"))
 			v.setValidatorStrategy(new ValidatorDouble());
+		else if(s.equals("cap"))
+			v.setValidatorStrategy(new ValidatorCap());
 		else
 			return true;
 

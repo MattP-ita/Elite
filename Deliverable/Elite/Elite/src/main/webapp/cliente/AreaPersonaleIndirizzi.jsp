@@ -11,9 +11,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Area Personale</title>
+<title>Elite | Area Personale</title>
 </head>
 <body>
+<%@ include file="/cliente/AggiuntaIndirizzoForm.jsp" %>
 	<div style="display: table ;">
 		<div style="display: table-layout: table-row ;">
 			<div style="display: table-cell;">		
@@ -29,10 +30,8 @@
 					</tr>
 				</table>
 			</div>
+			<button id="addIndirizzo">+</button>
 			<div style="display: table-cell;">
-				<div>
-					<button>+</button>
-				</div>
 				<%	
 				if(indirizzi!= null && indirizzi.size()>0){	
 					Iterator<?> it=indirizzi.iterator();
@@ -40,14 +39,15 @@
 						Indirizzo i=(Indirizzo) it.next();
 				%>
 					<div>
-						<h2><%=i.getIndirizo() %></h2>
+						<h2><%=i.getIndirizzo() %></h2>
 						<h3><%=i.getProvincia() %></h3>
+						<a href="<%=response.encodeURL("EliminazioneIndirizzoControl?id="+i.getId())%>">Rimuovi</a>
 					</div>
 				<%
 					}
 				}else{
 				%>
-					<p>Nessun metodo di pagamento</p>
+					<p>Nessun indirizzo di spedizione</p>
 				<%
 				}
 				%>			

@@ -4,13 +4,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login Admin</title>
+<script type="text/javascript" src="script/login.js"></script>
+<link rel="stylesheet" href="css/Login.css" type="text/css">
+<title>Elite | Login Admin</title>
 </head>
 <body>
-	<form name="formLoginAdmin" action="<%=response.encodeURL("LoginAdminControl") %>" method="post">	
-		<input type="text" name="email" placeholder="email"><br>
-		<input type="password" name="password" placeholder="Password:"><br>
-		<input type="submit" value="Login">
-	</form>
+	<div id="content">	
+		<div>
+			<form name="formLoginAdmin" action="<%=response.encodeURL("LoginAdminControl") %>" method="post">	
+				<input type="text" name="email" placeholder="E-mail"><br>
+				<input type="password" id="pass" name="password" placeholder="Password:"><br>
+				<div id="mostraPass"><input id="mostraPass" type="checkbox" onclick="showPassword()"><label for="mostraPass">Mostra Password</label></div>
+				<input type="submit" value="Login">
+			</form>
+		</div>
+	</div>
 </body>
 </html>

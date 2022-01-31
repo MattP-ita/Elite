@@ -1,6 +1,7 @@
 package elite.control.CarrelloControl;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +34,6 @@ public class AggiuntaVinileCarrelloControl extends HttpServlet {
 		
 		String id= request.getParameter("codiceV");
 		String quantita=request.getParameter("quantita");
-		
 		try {
 			if (!id.equals("")) {
 				Validator validator = new Validator();
@@ -47,14 +47,14 @@ public class AggiuntaVinileCarrelloControl extends HttpServlet {
 						throw new Exception("AggiuntaVinileCarrelloControl: Errore Dati Non Validi");
 					}
 				}else {
-					request.setAttribute("msgError", "id non valido.");
+					request.setAttribute("msgError", "Dati non validi");
 					throw new Exception("AggiuntaVinileCarrelloControl: Errore Dati Non Validi");
 				}
 			}else throw new Exception("AggiuntaVinileCarrelloControl: id null");			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		redirectedPage = response.encodeURL(redirectedPage);
 		response.sendRedirect(request.getContextPath() + redirectedPage);
 	}

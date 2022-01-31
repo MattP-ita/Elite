@@ -1,6 +1,8 @@
 package elite.bean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Ordine {
@@ -12,6 +14,14 @@ public class Ordine {
 	public ArrayList<Vinile> vinili;
 	
 	public Ordine() {}
+	
+	public Ordine(int idCliente, Indirizzo indirizzo, Pagamento pagamento, LocalDate data) {
+		this.idCliente = idCliente;
+		this.indirizzo = indirizzo;
+		this.pagamento = pagamento;
+		this.data = data;
+		vinili=new ArrayList<Vinile>();
+	}
 	
 	public Ordine(String id, int idCliente, Indirizzo indirizzo, Pagamento pagamento, LocalDate data) {
 		this.id = id;
@@ -73,7 +83,12 @@ public class Ordine {
 	
 	public void getPagamentoDB(String p) {
 		String[] data=p.split(";");
-		this.pagamento=new Pagamento(data[0], Integer.parseInt(data[1]), data[2], data[3], data[4], data[5]);
+		this.pagamento=new Pagamento(data[0], Integer.parseInt(data[1]), data[2], data[3], data[4]);
 	}
 	
+	public String generateId() {
+		LocalDateTime d = LocalDateTime.now();
+		DateTimeFormatter formatter=DateTimeFormatter.ofPattern("ssyyMMdd");
+		return idCliente+d.format(formatter);
+	}
 }

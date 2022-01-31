@@ -29,19 +29,20 @@ public class OrdineModel implements ClassModel<Ordine> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO ordine(idCliente, indirizzo, pagamento, data) VALUES (?,?,?,?)";
+		String insertSQL="INSERT INTO ordine(id, idCliente, indirizzo, pagamento, data) VALUES (?,?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 
-			preparedStatement.setInt(1, o.getIdCliente());
-			preparedStatement.setString(2, o.getIndirizzo().toString());
-			preparedStatement.setString(3, o.getPagamento().toString());
-			preparedStatement.setDate(3, Date.valueOf(o.getData()));
+			preparedStatement.setString(1, o.getId());
+			preparedStatement.setInt(2, o.getIdCliente());
+			preparedStatement.setString(3, o.getIndirizzo().toString());
+			preparedStatement.setString(4, o.getPagamento().toString());
+			preparedStatement.setDate(5, Date.valueOf(o.getData()));
 			
 
-			System.out.println("GestoreModel-Save:" + preparedStatement.toString());
+			System.out.println("OrdineModel-Save:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
 
 			connection.commit();
@@ -107,7 +108,7 @@ public class OrdineModel implements ClassModel<Ordine> {
 		return ordini;
 	}
 
-	public void insertContenutoOrdine(String id, Vinile v) throws SQLException {
+	public void insertContenutoOrdine(Ordine o, Vinile v) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -117,10 +118,10 @@ public class OrdineModel implements ClassModel<Ordine> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 
-			preparedStatement.setString(1, id);
+			preparedStatement.setString(1, o.getId());
 			preparedStatement.setString(2, v.getId());
 			preparedStatement.setDouble(3, v.getPrezzo());
-			preparedStatement.setInt(3, v.getQuantita());
+			preparedStatement.setInt(4, v.getQuantita());
 			
 
 			System.out.println("GestoreModel-Save:" + preparedStatement.toString());

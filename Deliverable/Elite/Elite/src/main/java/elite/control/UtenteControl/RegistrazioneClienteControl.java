@@ -28,8 +28,9 @@ public class RegistrazioneClienteControl extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		ClienteModel cm = new ClienteModel();
-		String redirectedPage = "/HomePageCliente.jsp";
-
+		String redirectedPage = "/RegistrazioneCliente.jsp";
+		String msg="";
+		
 		String nome = request.getParameter("nome");
 		String telefono = request.getParameter("telefono");
 		String email = request.getParameter("email");
@@ -44,24 +45,25 @@ public class RegistrazioneClienteControl extends HttpServlet {
 						if (password.equals(password2)) {
 							Cliente cliente = new Cliente(nome, telefono, email, Base64.getEncoder().encodeToString(password.getBytes()));
 							cm.save(cliente);
-							redirectedPage = "/HomePageCliente.jsp";
+							redirectedPage = "/LoginCliente.jsp";
 						} else {
-							request.setAttribute("msgError", "Password Diverse.");
+							msg="Password Diverse.";
 							throw new Exception("RegistazioneClienteControl: Errore Password Diverse");
 						}
 					} else {
-						request.setAttribute("msgError", "Dati inseriti non validi.");
+						msg="Dati inseriti non validi.";
 						throw new Exception("RegistazioneClienteControl: Errore Dati Non Validi");
 					}
 				} else {
-					request.setAttribute("msgError", "Email già eistente.");
+					msg="Email già eistente.";
 					throw new Exception("RegistazioneClienteControl: Errore Email Esistente");
 				}
 			}else {
-				request.setAttribute("msgError", "Dati Non Inseriti");
+				msg="Dati Non Inseriti";
 				throw new Exception("RegistazioneClienteControl: Dati Non Inseriti");
 			}
 		} catch (Exception e) {
+			request.getSession().setAttribute("msg", msg);
 			System.out.println(e.getMessage());
 		}
 

@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import elite.bean.Pagamento;
 import elite.model.PagamentoModel;
 
-@WebServlet("/cliente/EliminazionePagamento")
-public class EliminazionePagamento extends HttpServlet {
+@WebServlet("/cliente/EliminazionePagamentoControl")
+public class EliminazionePagamentoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public EliminazionePagamento() {
+    public EliminazionePagamentoControl() {
         super();
     }
 
@@ -29,6 +29,7 @@ public class EliminazionePagamento extends HttpServlet {
 		try {
 			Pagamento p=pm.findByKey(id);	
 			pm.delete(p);			
+			request.getSession().removeAttribute("pagamento");
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
