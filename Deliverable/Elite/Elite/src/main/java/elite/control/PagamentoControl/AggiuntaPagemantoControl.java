@@ -13,11 +13,11 @@ import elite.bean.Pagamento;
 import elite.model.PagamentoModel;
 import elite.utils.Validator;
 
-@WebServlet("/cliente/AggiuntaPagementoControl")
-public class AggiuntaPagementoControl extends HttpServlet {
+@WebServlet("/cliente/AggiuntaPagamentoControl")
+public class AggiuntaPagemantoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AggiuntaPagementoControl() {
+	public AggiuntaPagemantoControl() {
 		super();
 	}
 
@@ -28,41 +28,40 @@ public class AggiuntaPagementoControl extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		PagamentoModel pm = new PagamentoModel();
-		String redirectedPage = "/cliente/AreaPersonalePagamenti.jsp";
-
+		String redirectedPage = request.getHeader("Referer").substring(
+				request.getHeader("Referer").indexOf(request.getContextPath()) + request.getContextPath().length());
 		String tipo = request.getParameter("tipo");
 		String nome = request.getParameter("nomeCompleto");
 		String numero = request.getParameter("numero");
 		String meseP = request.getParameter("meseP");
 		String annoP = request.getParameter("annoP");
-		String codice = request.getParameter("codice");
-
 		try {
-			if (!tipo.equals("") && !nome.equals("") && !numero.equals("") && !meseP.equals("") && !annoP.equals("")
-					&& !codice.equals("")) {
+			if (!tipo.equals("") && !nome.equals("") && !numero.equals("") && !meseP.equals("") && !annoP.equals("")) {
 				if (pm.checkNumber(numero)) {
 					Validator validator = new Validator();
-					if (validator.validaRequest(request)) {
-						// if(validaCarta(numero, codice)){
-						Cliente c=(Cliente) request.getSession().getAttribute("Cliente");
-						Pagamento p = new Pagamento(tipo, c.getId(), nome, numero, meseP+annoP, codice);
-						pm.save(p);
-						// }else {
-						//request.setAttribute("msgError", "Metodo di Pagamento non valido");
-						//throw new Exception("AggiuntaPagementoControl: Metodo Pagamento Non Valido");
-						//}
-					}else {
+					if (validator.validaRequest(request)) {		
+						System.out.println("dentro");
+						Cliente c = (Cliente) request.getSession().getAttribute("Cliente");
+						Pagamento p = new Pagamento(tipo, c.getId(), nome, numero, meseP + annoP);
+						p.checkPagamento();
+						if(p.isValid()) {
+							pm.save(p);
+						}else {
+							request.setAttribute("msgError", "Dati inseriti non validi.");
+							throw new Exception("AggiuntaPagementoControl: Errore Carta Non Valida");
+						}
+					} else {
 						request.setAttribute("msgError", "Dati inseriti non validi.");
 						throw new Exception("AggiuntaPagementoControl: Errore Dati Non Validi");
 					}
-				}else {
-					request.setAttribute("msgError", "Numero già eistente.");
+				} else {
+					request.setAttribute("msgErr)or", "Numero già eistente.");
 					throw new Exception("AggiuntaPagementoControl: Errore Numero Esistente");
 				}
-			}else {
+			} else {
 				request.setAttribute("msgError", "Dati Non Inseriti");
 				throw new Exception("AggiuntaPagementoControl: Dati Non Inseriti");
-			}	
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

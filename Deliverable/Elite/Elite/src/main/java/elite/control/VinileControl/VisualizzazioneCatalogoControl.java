@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import elite.bean.Artista;
+import elite.bean.Genere;
 import elite.bean.Vinile;
+import elite.model.ArtistaModel;
+import elite.model.GenereModel;
 import elite.model.VinileModel;
 
 @WebServlet("/VisualizzazioneCatalogoControl")
@@ -28,11 +32,18 @@ public class VisualizzazioneCatalogoControl extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		VinileModel vm = new VinileModel();
+		ArtistaModel am = new ArtistaModel();
+		GenereModel gm = new GenereModel();
 		String redirectedPage = "/HomePage.jsp";
 		
 		try {
 			ArrayList<Vinile> v=vm.findAll("");
+			ArrayList<Artista> a=am.findAll("");
+			ArrayList<Genere> g=gm.findAll("");
+			
 			request.setAttribute("vinili", v);
+			request.setAttribute("artisti", a);
+			request.setAttribute("generi", g);
 			redirectedPage = "/Catalogo.jsp";
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

@@ -190,7 +190,7 @@ public class ClienteModel implements ClassModel<Cliente>, AccountModel<Cliente> 
 			preparedStatement.setString(1, e);
 			preparedStatement.setString(2, p);
 
-			System.out.println("GestoreModel-checkEmail:" + preparedStatement.toString());
+			System.out.println("ClienteModel-checkEmail:" + preparedStatement.toString());
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {

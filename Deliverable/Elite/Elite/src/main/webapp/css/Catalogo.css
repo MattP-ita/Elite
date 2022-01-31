@@ -1,0 +1,20 @@
+.vinileCatalogo{
+	width:200px; 
+	margin:100px 50px; 
+	display:inline-block;
+	background:linear-gradient(#808080, #333);
+	border-radius: 4px;
+	text-align: center;
+}
+
+.vinileCatalogo img{	
+	padding-bottom: 15px;
+	width:80%; 
+	display:block; 
+	margin:0px auto; 
+}
+
+#catalogo a:link, #catalogo:visited{
+	color:white; 
+	text-decoration: none;	
+}

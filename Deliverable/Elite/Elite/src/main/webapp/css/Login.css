@@ -1,0 +1,113 @@
+div{
+	width: 300px;
+	margin: auto;	
+	text-align: center;
+}
+
+#content{
+	margin-top: 80px;
+}
+
+#mostraPass{
+  text-align: left;
+  margin-left: 5px;
+ }
+
+.logo{
+	display: block;
+	color: #333; 
+	font-size: 40px; 
+	text-decoration: none;
+	padding-bottom: 30px;
+}
+
+input[type=text], input[type=password], input[type=submit]{
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type=submit] {
+  background-color: #333;
+  color: white;
+}
+
+#registra:link{
+	color:black;
+}
+
+#registra:visited{
+	color:black;
+}
+
+#registra:hover{
+	 opacity: 0.5;
+}
+
+#alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  margin-top: 30px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltip .tooltiptext {
+  	visibility: hidden;
+  	background-color: #555;
+  	color: #fff;
+  	text-align: center;
+  	border-radius: 6px;
+  	padding: 10px;
+ 	position: absolute;
+ 	z-index: 1;
+  	opacity: 0;
+  	transition: opacity 0.5s;
+}
+
+#stt1{
+	width: 200px;
+	text-align: left;
+	bottom: -55%;
+	right: -80%;
+}
+
+#stt2{
+	bottom: 20%;
+	right: -70%;
+	width: 170px;
+}
+
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #555 transparent transparent;
+}
+
+#stt1:after{
+	top: 20%;
+	left: -2%;
+}
+
+#stt2:after{
+	top: 32%;
+	left: -2%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+

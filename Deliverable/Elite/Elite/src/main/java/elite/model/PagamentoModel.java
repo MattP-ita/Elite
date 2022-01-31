@@ -34,7 +34,6 @@ public class PagamentoModel implements ClassModel<Pagamento> {
 				p.setNome(rs.getString("nome"));
 				p.setNumero(rs.getString("numero"));
 				p.setScadenza(rs.getString("scadenza"));
-				p.setCodice(rs.getString("codice"));
 				p.setValido(rs.getInt("valido"));
 			}
 		} finally {
@@ -60,18 +59,17 @@ public class PagamentoModel implements ClassModel<Pagamento> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO pagamento(tipo, idCliente, nome, numero, scadenza, codice) VALUES (?,?,?,?,?,?)";
+		String insertSQL = "INSERT INTO pagamento(tipo, idCliente, nome, numero, scadenza) VALUES (?,?,?,?,?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 
 			preparedStatement.setString(1, p.getTipo());
-			preparedStatement.setInt(1, p.getIdCliente());
-			preparedStatement.setString(2, p.getNome());
-			preparedStatement.setString(3, p.getNumero());
-			preparedStatement.setString(4, p.getScadenza());
-			preparedStatement.setString(5, p.getCodice());
+			preparedStatement.setInt(2, p.getIdCliente());
+			preparedStatement.setString(3, p.getNome());
+			preparedStatement.setString(4, p.getNumero());
+			preparedStatement.setString(5, p.getScadenza());
 
 			System.out.println("PagamentoModel-Save:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -145,7 +143,6 @@ public class PagamentoModel implements ClassModel<Pagamento> {
 				p.setNome(rs.getString("nome"));
 				p.setNumero(rs.getString("numero"));
 				p.setScadenza(rs.getString("scadenza"));
-				p.setCodice(rs.getString("codice"));
 				p.setValido(rs.getInt("valido"));
 				pagamenti.add(p);
 			}

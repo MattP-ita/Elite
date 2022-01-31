@@ -27,7 +27,8 @@ public class AggiuntaIndirizzoControl extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		IndirizzoModel im = new IndirizzoModel();
-		String redirectedPage = "/cliente/AreaPersonaleIndirizzi.jsp";
+		String redirectedPage = request.getHeader("Referer").substring(
+				request.getHeader("Referer").indexOf(request.getContextPath()) + request.getContextPath().length());
 
 		String nome = request.getParameter("nomeCompleto");
 		String telefono = request.getParameter("telefono");
@@ -43,10 +44,11 @@ public class AggiuntaIndirizzoControl extends HttpServlet {
 					&& !provincia.equals("") && !citta.equals("") && !cap.equals("")) {
 				Validator validator = new Validator();
 				if (validator.validaRequest(request)) {
-					Cliente c=(Cliente) request.getSession().getAttribute("Cliente");
-					Indirizzo i = new Indirizzo(c.getId(), nome, telefono, indirizzo, regione, provincia, citta, cap, descrizione);
-					im.save(i);					
-				}else {
+					Cliente c = (Cliente) request.getSession().getAttribute("Cliente");
+					Indirizzo i = new Indirizzo(c.getId(), nome, telefono, indirizzo, regione, provincia, citta, cap,
+							descrizione);
+					im.save(i);
+				} else {
 					request.setAttribute("msgError", "Dati inseriti non validi.");
 					throw new Exception("AggiuntaIndirizzoControl: Errore Dati Non Validi");
 				}

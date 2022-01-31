@@ -4,7 +4,7 @@
 Vinile vinile=(Vinile) request.getAttribute("vinile");
 
 if(vinile==null){
-	response.sendRedirect(response.encodeRedirectURL("./catalogo.jsp"));
+	response.sendRedirect(response.encodeRedirectURL("./Catalogo.jsp"));
 	return;
 }
 %>
@@ -19,8 +19,8 @@ if(vinile==null){
 			<h1><%=vinile.getNome() %></h1>
 		</div>
 		<div>
-			<h2>Artista: <%=vinile.getArtista() %></h2>
-			<h2>Genere:	<%=vinile.getGenere() %></h2>	
+			<h2>Artista: <%=vinile.getArtista().getNome() %></h2>
+			<h2>Genere:	<%=vinile.getGenere().getNome() %></h2>	
 			<% 
 				if (vinile.getQuantita()>0) {
 			%>
@@ -36,7 +36,7 @@ if(vinile==null){
 			<h2>Prezzo: <%=vinile.getPrezzo() %></h2>
 			<h2>Quantità: <%=vinile.getQuantita() %></h2>
 			
-			<form action="<%=response.encodeURL("AggiuntaVinileCarrelloControl?codicev="+vinile.getId()) %>" method="post">
+			<form action="<%=response.encodeURL("cliente/AggiuntaVinileCarrelloControl?codiceV="+vinile.getId()) %>" method="post">
 				<label for="Quantità">Quantita:</label>
 				<select name="quantita">
 					<%

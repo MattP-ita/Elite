@@ -28,7 +28,7 @@ public class EliminazioneVinileCarrelloControl extends HttpServlet {
 		
 		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
 		VinileModel vm=new VinileModel();
-		String redirectedPage = "/CarrelloCliente.jsp";
+		String redirectedPage = "/cliente/CarrelloCliente.jsp";
 		
 		String id= request.getParameter("codiceV");
 		

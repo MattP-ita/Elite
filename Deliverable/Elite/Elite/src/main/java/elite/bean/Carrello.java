@@ -49,4 +49,12 @@ public class Carrello {
 	public void deleteItems() {
 		items.clear();		
 	}
+	
+	public double calcolaTotale() {
+		double somma=0;
+		for(Vinile v:items) {
+			somma=somma+(v.getPrezzo()*v.getQuantita());
+		}
+		return somma;
+	}
 }

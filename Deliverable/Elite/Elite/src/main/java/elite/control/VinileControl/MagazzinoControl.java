@@ -18,16 +18,16 @@ import elite.model.ArtistaModel;
 import elite.model.GenereModel;
 import elite.model.VinileModel;
 
-
 @WebServlet("/gestore/MagazzinoControl")
 public class MagazzinoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public MagazzinoControl() {
-        super();
-    }
+	public MagazzinoControl() {
+		super();
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -35,28 +35,28 @@ public class MagazzinoControl extends HttpServlet {
 		VinileModel vm = new VinileModel();
 		ArtistaModel am = new ArtistaModel();
 		GenereModel gm = new GenereModel();
-		
+
 		String redirectedPage = "/gestore/Magazzino.jsp";
-		
+
 		try {
-			ArrayList<Vinile> v=vm.findAll("");
-			ArrayList<Artista> a=am.findAll("");
-			ArrayList<Genere> g=gm.findAll("");
-			
+			ArrayList<Vinile> v = vm.findAll("");
+			ArrayList<Artista> a = am.findAll("");
+			ArrayList<Genere> g = gm.findAll("");
+
 			request.setAttribute("vinili", v);
 			request.setAttribute("artisti", a);
 			request.setAttribute("generi", g);
-			redirectedPage = "/gestore/Magazzino.jsp";
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

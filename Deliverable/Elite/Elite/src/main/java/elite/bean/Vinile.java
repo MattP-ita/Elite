@@ -4,10 +4,8 @@ public class Vinile {
 	public String id;
 	public String nome;
 	public String giri;
-	public int idArtista;
-	public String artista;
-	public int idGenere;
-	public String genere;
+	public Artista artista;
+	public Genere genere;
 	public double prezzo;
 	public int quantita;
 	private boolean copertina;
@@ -19,21 +17,19 @@ public class Vinile {
 		this.id = id;
 		this.nome = nome;
 		this.giri = giri;
-		this.idArtista = idArtista;
-		this.idGenere = idGenere;
+		setIdArtista(idArtista);
+		setIdGenere(idGenere);
 		this.prezzo = prezzo;
 		this.quantita = quantita;
 	}
 
-	public Vinile(String id, String nome, String giri, int idArtista, String artista, int idGenere, String genere,
+	public Vinile(String id, String nome, String giri, int idArtista, String nomeA, int idGenere, String nomeG,
 			double prezzo, int quantita, boolean copertina) {
 		this.id = id;
 		this.nome = nome;
 		this.giri = giri;
-		this.idArtista = idArtista;
-		this.artista = artista;
-		this.idGenere = idGenere;
-		this.genere = genere;
+		this.artista = new Artista(idArtista, nomeA);
+		this.genere = new Genere(idGenere, nomeG);
 		this.prezzo = prezzo;
 		this.quantita = quantita;
 		this.copertina = copertina;
@@ -64,34 +60,34 @@ public class Vinile {
 	}
 
 	public int getIdArtista() {
-		return idArtista;
+		return artista.getId();
 	}
 
 	public void setIdArtista(int idArtista) {
-		this.idArtista = idArtista;
+		artista.setId(idArtista);
 	}
 
-	public String getArtista() {
+	public Artista getArtista() {
 		return artista;
 	}
 
-	public void setArtista(String artista) {
-		this.artista = artista;
+	public void setArtista(Artista artista) {
+		this.artista=artista;
 	}
 
 	public int getIdGenere() {
-		return idGenere;
+		return genere.getId();
 	}
 
 	public void setIdGenere(int idGenere) {
-		this.idGenere = idGenere;
+		genere.setId(idGenere);
 	}
 
-	public String getGenere() {
+	public Genere getGenere() {
 		return genere;
 	}
 
-	public void setGenere(String genere) {
+	public void setGenere(Genere genere) {
 		this.genere = genere;
 	}
 

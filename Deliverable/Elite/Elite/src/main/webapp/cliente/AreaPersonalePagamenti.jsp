@@ -15,6 +15,7 @@
 <title>Area Personale</title>
 </head>
 <body>
+<%@ include file="/cliente/AggiuntaPagamentoForm.jsp" %>
 	<div style="display: table ;">
 		<div style="display: table-layout: table-row ;">
 			<div style="display: table-cell;">		
@@ -30,6 +31,7 @@
 					</tr>
 				</table>
 			</div>
+			<button id="addPagamento">+</button>
 			<div style="display: table-cell;">	
 				<table>
 				<%	
@@ -57,6 +59,7 @@
 				%>
 					<h3><%=pagamento.getNome() %></h3>
 					<h2><%=pagamento.getNumero() %></h2>
+					<a href="<%=response.encodeURL("EliminazionePagamentoControl?id="+pagamento.getId())%>">Rimuovi</a>
 				<%
 				}
 				%>

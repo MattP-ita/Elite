@@ -33,23 +33,25 @@
 					<table>
 						<tr>
 							<td><label for="nome">Nome</label></td>
-							<td id="labelNome"><%=c.getNome() %></td>
+							<td class="userData"><%=c.getNome() %></td>
 							<td><input class="inputMod hidden" type="text" name="nome" placeholder="<%=c.getNome()%>"></td>
 						</tr>	
 						<tr>
 							<td><label for="telefono">Telefono</label></td>
-							<td><%=c.getTelefono() %></td>
+							<td class="userData"><%=c.getTelefono() %></td>
 							<td><input class="inputMod hidden"  type="text" name="telefono" placeholder="<%=c.getTelefono()%>"></td>
 						</tr>	
 						<tr>
 							<td><label for="email">Email</label></td>
-							<td><%=c.getEmail() %></td>
+							<td class="userData"><%=c.getEmail() %></td>
 							<td><input class="inputMod hidden"  type="text" name="email" placeholder="<%=c.getEmail()%>"></td>
 						</tr>	
 						<tr>
 							<td><label for="password">Password</label></td>
-							<td>***</td>
-							<td><input class="inputMod hidden"  type="text" name="password" placeholder="**********"></td>
+							<td class="userData">*******</td>
+							<td><input class="inputMod hidden"  type="text" name="password" placeholder="Password Attuale"></td>
+							<td><input class="inputMod hidden"  type="text" name="password2" placeholder="Nuova Password"></td>
+							<td><input class="inputMod hidden"  type="text" name="password3" placeholder="Conferma Password"></td>
 						</tr>	
 						<tr>
 							<td colspan="2"><input type="submit" value="Salva"></td>

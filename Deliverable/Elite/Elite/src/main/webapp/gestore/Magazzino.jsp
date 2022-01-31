@@ -13,134 +13,162 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="../script/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="../script/magazzinoScript.js"></script>
+<link rel="stylesheet" href="../css/Magazzino.css" type="text/css">
 <title>Elite | Magazzino</title>
 </head>
-<body><h1>Magazzino</h1>
-	<div id="addItems">
-		<div id="addVinile">
-			<fieldset><legend>Aggiunta Vinile</legend>
-			<form action="<%=response.encodeURL("AggiuntaVinileControl") %>" method="post">
-				<table>
-					<tr>
-						<td><label for="idV">ID</label></td>
-						<td><input id="idV" type="text" name="codiceV"></td>
-					</tr>
-					<tr>
-						<td><label for="nomeV"></label>Nome</td>
-						<td><input id="nomeV" type="text" name="nomeV"></td>
-					</tr>
-					<tr>
-						<td><label for="giriV">Giri</label></td>
-						<td><select id="giriV" name="giri">
-								<option selected value=""></option>
-								<option value="33">33</option>
-								<option value="45">45</option>
-								<option value="78">78</option>
-							</select></td>
-					</tr>
-					<tr>
-						<td><label for="artistaV">Artista</label></td>
-						<td><select id="artistaV" name="idArtista">
-								<option selected value=""></option>
-								<%	
-								if(artisti!= null && artisti.size()>0){	
-									Iterator<?> it=artisti.iterator();
-									while(it.hasNext()){
-										Artista a=(Artista) it.next();
-								%>
-									<option value="<%=a.getId()%>"><%=a.getNome() %></option>
-								<%
+<body>
+<h1>Magazzino</h1>
+	<div id="addItems" style="display: table;">
+		<div style="display: table-row;">
+			<div id="addVinile" style="display: table-cell;">
+				<fieldset><legend>Aggiunta Vinile</legend>
+				<form action="<%=response.encodeURL("AggiuntaVinileControl") %>" method="post">
+					<table>
+						<tr>
+							<td><label for="idV">ID</label></td>
+							<td><input id="idV" type="text" name="codiceV"></td>
+							<td><label for="nomeV"></label>Nome</td>
+							<td><input id="nomeV" type="text" name="nomeV"></td>
+						</tr>
+						<tr>
+							<td><label for="artistaV">Artista</label></td>
+							<td><select id="artistaV" name="idArtista">
+									<option selected value=""></option>
+									<%	
+									if(artisti!= null && artisti.size()>0){	
+										Iterator<?> it=artisti.iterator();
+										while(it.hasNext()){
+											Artista a=(Artista) it.next();
+									%>
+										<option value="<%=a.getId()%>"><%=a.getNome() %></option>
+									<%
+										}
 									}
-								}
-								%>		
-							</select></td>
-					</tr>
-					<tr>
-						<td><label for="genereV">Genere</label></td>
-						<td><select id="genereV" name="idGenere">
+									%>		
+								</select></td>
+							<td><label for="genereV">Genere</label></td>
+							<td><select id="genereV" name="idGenere">
+									<option selected value=""></option>
+									<%
+									if(generi.size()>0){
+										Iterator<?> it=generi.iterator();
+										while(it.hasNext()){
+											Genere g=(Genere) it.next();
+									%>			
+										<option value="<%=g.getId() %>"><%=g.getNome() %></option>
+									<%
+										}
+									}
+									%>
+								</select></td>
+						</tr>
+						<tr>
+							<td><label for="giriV">Giri</label></td>
+							<td><select id="giriV" name="giri">
+									<option selected value=""></option>
+									<option value="33">33</option>
+									<option value="45">45</option>
+									<option value="78">78</option>
+								</select></td>
+							<td><label for="prezzoV">Prezzo</label></td>
+							<td><input id="prezzoV" type="number" name="prezzo" min="0.01" max="999" step="0.01"></td>
+						</tr>
+						<tr>
+							<td><label for="quantitaV">Quantità</label></td>
+							<td><input id="quantitaV" type="number" name="quantita" min="1" max="9999" step="1"></td>
+							<td colspan="2"><input type="submit" value="Aggiungi"></td>
+						</tr>
+					</table>
+				</form>
+				</fieldset>
+			</div>
+			<div style="display: table-cell; height: 100%;" >
+				<fieldset><legend>Copertina</legend>
+					<form id="formFile" name="formFile" action="<%=response.encodeURL("./UploadCopertinaControl") %>" enctype="multipart/form-data" method="post">
+						<table>
+							<tr>
+								<td colspan="2"><input id="fileCop" class="file normal" type="file" name="talkPhoto" value="" maxlength="255" accept="image/*"></td>	
+							</tr>
+							<tr>
+								<td><label for=codice>ID:</label></td>
+								<td><select name="codiceV" id="codiceCop">
 								<option selected value=""></option>
 								<%
-								if(generi.size()>0){
-									Iterator<?> it=generi.iterator();
+								if(vinili.size()>0){
+								Iterator<?> it=vinili.iterator();
 									while(it.hasNext()){
-										Genere g=(Genere) it.next();
+										Vinile v=(Vinile) it.next();
+										if(!v.isCopertina()){
 								%>			
-									<option value="<%=g.getId() %>"><%=g.getNome() %></option>
-								<%
+											<option value="<%=v.getId() %>"><%=v.getId() %> - <%=v.getNome() %></option>
+								<%		}
 									}
 								}
 								%>
-							</select></td>
-					</tr>
-					<tr>
-						<td><label for="prezzoV">Prezzo</label></td>
-						<td><input id="prezzoV" type="number" name="prezzo" min="0.01" max="999" step="0.01"></td>
-					</tr>
-					<tr>
-						<td><label for="quantitaV">Quantità</label></td>
-						<td><input id="quantitaV" type="number" name="quantita" min="1" max="9999" step="1"></td>
-					</tr>
-					<tr>
-						<td><input type="reset" value="Reset"></td>
-						<td><input type="submit" value="Aggiungi"></td>
-					</tr>
-				</table>
-			</form>
-			</fieldset>
-		</div>
-		<div>
-			<fieldset><legend>Artista</legend>
-				<form action="<%=response.encodeURL("AggiuntaArtistaControl") %>" method="post">
-					<input type="text" name="nomeA">
-					<input type="submit" value="Conferma">
-				</form>
-				<form action="<%=response.encodeURL("ModificaArtistaControl") %>" method="post">
-					<select id="artistaV" name="idArtista">
-						<option selected value=""></option>
-						<%	
-						if(artisti!= null && artisti.size()>0){	
-							Iterator<?> it=artisti.iterator();
-							while(it.hasNext()){
-								Artista a=(Artista) it.next();
-						%>
-							<option value="<%=a.getId()%>"><%=a.getNome() %></option>
-						<%
+								</select></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" class="buttonStandard box" value="Conferma"></td>
+							</tr>
+						</table>
+					</form>
+				</fieldset>
+			</div>
+			<div style="display: table-cell;">
+				<fieldset><legend>Artista</legend>
+					<form action="<%=response.encodeURL("AggiuntaArtistaControl") %>" method="post">
+						<input type="text" name="nomeA">
+						<input type="submit" value="Conferma">
+					</form>
+					<form action="<%=response.encodeURL("ModificaArtistaControl") %>" method="post">
+						<select id="artistaV" name="idArtista">
+							<option selected value=""></option>
+							<%	
+							if(artisti!= null && artisti.size()>0){	
+								Iterator<?> it=artisti.iterator();
+								while(it.hasNext()){
+									Artista a=(Artista) it.next();
+							%>
+								<option value="<%=a.getId()%>"><%=a.getNome() %></option>
+							<%
+								}
 							}
-						}
-						%>		
-					</select>
-					<input type="text" name="nomeA">
-					<input type="submit" value="Conferma">
-				</form>
-			</fieldset>
-		</div>
-		<div>
-			<fieldset><legend>Genere</legend>
-				<form action="<%=response.encodeURL("AggiuntaGenereControl") %>" method="post">
-					<input type="text" name="nomeG">
-					<input type="submit" value="Conferma">
-				</form>
-				<form action="<%=response.encodeURL("ModificaGenereControl") %>" method="post">
-					<select id="genereV" name="idGenere">
-						<option selected value=""></option>
-						<%
-						if(generi.size()>0){
-							Iterator<?> it=generi.iterator();
-							while(it.hasNext()){
-								Genere g=(Genere) it.next();
-						%>			
-							<option value="<%=g.getId() %>"><%=g.getNome() %></option>
-						<%
+							%>		
+						</select>
+						<input type="text" name="nomeA">
+						<input type="submit" value="Conferma">
+					</form>
+				</fieldset>
+			</div>
+			<div style="display: table-cell;">
+				<fieldset><legend>Genere</legend>
+					<form action="<%=response.encodeURL("AggiuntaGenereControl") %>" method="post">
+						<input type="text" name="nomeG">
+						<input type="submit" value="Conferma">
+					</form>
+					<form action="<%=response.encodeURL("ModificaGenereControl") %>" method="post">
+						<select id="genereV" name="idGenere">
+							<option selected value=""></option>
+							<%
+							if(generi.size()>0){
+								Iterator<?> it=generi.iterator();
+								while(it.hasNext()){
+									Genere g=(Genere) it.next();
+							%>			
+								<option value="<%=g.getId() %>"><%=g.getNome() %></option>
+							<%
+								}
 							}
-						}
-						%>
-					</select>
-					<input type="text" name="nomeG">
-					<input type="submit" value="Conferma">
-				</form>
-			</fieldset>
-		</div>			
+							%>
+						</select>
+						<input type="text" name="nomeG">
+						<input type="submit" value="Conferma">
+					</form>
+				</fieldset>
+			</div>			
+		</div>
 	</div>
 	<div id="ricercaAvanzata" style="float: left;">
 		<fieldset><legend>Ricerca avanzata</legend>
@@ -254,11 +282,13 @@
 				</tr>
 				<tr>
 					<td>
-						<fieldset><legend>Quantità</legend>							
-							<input type="radio" id="sceltaQuantita" name="sceltaQuantita" value="minore">Minore di: |
-							<input type="radio" id="sceltaQuantita" name="sceltaQuantita" value="maggiore">Maggiore di: <br>
-							<input type="range" id="rangeInputQuantity" name="rangeInputQuantity" min="0" max="500" step="10" value="0" oninput="amountQuantity.value=rangeInputQuantity.value" onchange="sendQuantity(sceltaQuantita.checked, this.value)">  
-							<output id="amountQuantity" name="amountQuantity" for="rangeInputQuantity">0</output>
+						<fieldset><legend>Quantità</legend>	
+							<form name="formQuantita" action="<%=response.encodeURL("FiltroViniliGestoreControl?action=ricercaQuantita")%>" method="post">					
+								<input type="radio" id="sceltaQuantita" name="sceltaQuantita" value="minore" checked="checked">Minore di: |
+								<input type="radio" id="sceltaQuantita" name="sceltaQuantita" value="maggiore">Maggiore di: <br>
+								<input type="range" id="rangeInputQuantity" name="rangeInputQuantity" min="0" max="500" step="10" value="0" oninput="amountQuantity.value=rangeInputQuantity.value" onchange="javascript:document.formQuantita.submit();">  
+								<output id="amountQuantity" name="amountQuantity" for="rangeInputQuantity">0</output>
+							</form>
 						</fieldset>
 					</td>
 				</tr>
@@ -273,10 +303,11 @@
 			<table>
 				<tr>
 					<th></th>
+					<th>Copertina</th>
 					<th><a href="<%=response.encodeURL("FiltroViniliGestoreControl?action=sort&sort=nome") %>">Nome</a></th>
 					<th><a href="<%=response.encodeURL("FiltroViniliGestoreControl?action=sort&sort=giri") %>">Giri</a></th>
-					<th><a href="<%=response.encodeURL("FiltroViniliGestoreControl?action=sort&sort=artista") %>">Artista</a></th>
-					<th><a href="<%=response.encodeURL("FiltroViniliGestoreControl?action=sort&sort=genere") %>">Genere</a></th>
+					<th><a href="<%=response.encodeURL("FiltroViniliGestoreControl?action=sort&sort=nomeA") %>">Artista</a></th>
+					<th><a href="<%=response.encodeURL("FiltroViniliGestoreControl?action=sort&sort=nomeG") %>">Genere</a></th>
 					<th><a href="<%=response.encodeURL("FiltroViniliGestoreControl?action=sort&sort=prezzo") %>">Prezzo</a></th>
 					<th><a href="<%=response.encodeURL("FiltroViniliGestoreControl?action=sort&sort=quantita") %>">Quantità</a></th>
 					<th>Modifica</th>
@@ -289,6 +320,7 @@
 				%>
 					<tr>		
 						<td><form id="<%="formModV"+v.getId()%>" action="<%=response.encodeURL("ModificaVinileControl?id="+v.getId()) %>"><input type="hidden" name="id" value="<%=v.getId()%>"></form></td>	
+						<td><img id="copertina" src="../LoadCopertinaControl?codiceV=<%=v.getId() %>" onerror="this.src='../images/NoCop.jpg'"></td>
 						<td><input form="<%="formModV"+v.getId()%>" type="text" name="nomeV" placeholder="<%=v.getNome()%>"></td>
 						<td><select form="<%="formModV"+v.getId()%>" id="giriV" name="giri">
 								<option selected value=""><%=v.getGiri()%></option>

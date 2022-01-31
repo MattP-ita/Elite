@@ -14,13 +14,14 @@ import elite.model.ArtistaModel;
 import elite.model.GenereModel;
 import elite.model.VinileModel;
 
-@WebServlet("/gestore/FiltroViniliGestoreControl")
-public class FiltroViniliGestoreControl extends HttpServlet {
+@WebServlet("/FiltroViniliCatalogoControl")
+public class FiltroViniliCatalogoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    public FiltroViniliGestoreControl() {
+	
+    public FiltroViniliCatalogoControl() {
         super();
     }
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -31,7 +32,7 @@ public class FiltroViniliGestoreControl extends HttpServlet {
 		GenereModel gm = new GenereModel();
 		ArtistaModel am = new ArtistaModel();
 		
-		String redirectedPage = "/gestore/Magazzino.jsp";
+		String redirectedPage = "/Catalogo.jsp";
 		String action = request.getParameter("action");
 		
 		try {
@@ -49,9 +50,8 @@ public class FiltroViniliGestoreControl extends HttpServlet {
 					request.getSession().removeAttribute("giriRA");
 					request.getSession().setAttribute("giriRA", request.getParameter("giri"));
 				}else if(action.equals("ricercaPrezzo")) {	
-					System.out.println("ciao");
 					request.getSession().removeAttribute("prezzoMaxRA");	
-					request.getSession().setAttribute("prezzoMaxRA", request.getParameter("prezzoMax"));
+					request.getSession().setAttribute("prezzoMaxRA", request.getParameter("rangeInputPrice"));
 				}else if(action.equals("ricercaQuantita")) {
 					if(request.getParameter("sceltaQuantita")!=null && !request.getParameter("sceltaQuantita").equals("")) {
 						request.getSession().removeAttribute("sceltaQuantitaRA");

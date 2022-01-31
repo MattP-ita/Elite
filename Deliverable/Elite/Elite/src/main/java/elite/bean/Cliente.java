@@ -66,6 +66,6 @@ public class Cliente {
 	}	
 	
 	public boolean isEmpty() {
-		return email.equals("");
+		return email==null;
 	}
 }

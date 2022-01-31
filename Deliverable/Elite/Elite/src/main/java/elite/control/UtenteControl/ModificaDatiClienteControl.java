@@ -34,6 +34,8 @@ public class ModificaDatiClienteControl extends HttpServlet {
 		String telefono = request.getParameter("telefono");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		String password2 = request.getParameter("password2");
+		String password3 = request.getParameter("passwor3");
 
 		try {
 			if (!nome.equals("") || !telefono.equals("") || !email.equals("") || !password.equals("")) {
@@ -67,9 +69,14 @@ public class ModificaDatiClienteControl extends HttpServlet {
 					}
 				}
 				if (!password.equals("")) {
-					if (validator.valida(password, "password")) {
-						c.setPassword(Base64.getEncoder().encodeToString(password.getBytes()));
-					} else {
+					if(c.getPassword().equals(Base64.getEncoder().encodeToString(password.getBytes()))) {
+						if (validator.valida(password2, "password") && password2.equals(password3)) {
+							c.setPassword(Base64.getEncoder().encodeToString(password.getBytes()));
+						} else {
+							request.setAttribute("msgErrorPassword", "Password non valida");
+							throw new Exception("ModificaDatiClienteControl: Dati Non Validi");
+						}
+					}else {
 						request.setAttribute("msgErrorPassword", "Password non valida");
 						throw new Exception("ModificaDatiClienteControl: Dati Non Validi");
 					}

@@ -1,0 +1,44 @@
+div{
+	width: 300px;
+	margin: auto;	
+	text-align: center;
+}
+
+#content{
+	margin-top: 80px;
+}
+
+.logo{
+	display: block;
+	color: #333; 
+	font-size: 40px; 
+	text-decoration: none;
+	padding-bottom: 30px;
+}
+
+button{
+	display: inline-block;
+}
+
+#content input[type=text], #content input[type=submit], #content select, #content button{
+  text-align: center;
+  width: 70%;
+  padding: 10px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#content button{
+	width: 13%;
+}
+
+img{
+	width:50px;
+	height:auto;
+	margin:auto;
+ 	border-radius: 8px;
+}

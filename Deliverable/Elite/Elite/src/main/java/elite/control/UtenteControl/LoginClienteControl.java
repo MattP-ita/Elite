@@ -34,6 +34,7 @@ public class LoginClienteControl extends HttpServlet {
 		
 		ClienteModel cm = new ClienteModel();
 		String redirectedPage = "/LoginCliente.jsp";
+		String msg = "";
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -48,16 +49,18 @@ public class LoginClienteControl extends HttpServlet {
 					Carrello carrello = new Carrello();
 					request.getSession().setAttribute("carrello", carrello);
 				}else{
-					request.setAttribute("msgError", "Login errato, riprova.");
+					msg="Login errato, riprova.";
 					throw new Exception("LoginClienteControl: Account non trovato");
 				}
 			}else {
-				request.setAttribute("msgError", "E-mail e/o password non inseriti.");
+				msg="E-mail e/o password non inseriti.";
 				throw new Exception("LoginClienteControl: Dati Non Inseriti");
-			}
+			}			
 		} catch (Exception e) {
+			request.getSession().setAttribute("msg", msg);
 			System.out.println(e.getMessage());
 		}
+		
 		redirectedPage = response.encodeURL(redirectedPage);
 		response.sendRedirect(request.getContextPath() + redirectedPage);
 	}
